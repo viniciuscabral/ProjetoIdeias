@@ -46,7 +46,7 @@ class CadastroProjeto extends Component {
             </Alert>
         }
         else {
-            const apiUrl = 'http://localhost:8080/api/projetos';
+            const apiUrl = 'http://devcabral.com.br:8080/api/projetos';
             const myHeaders = new Headers();
             myHeaders.append('Content-Type', 'application/json');
             const dados = this.state;

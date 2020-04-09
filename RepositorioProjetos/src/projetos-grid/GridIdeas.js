@@ -18,7 +18,7 @@ const GridIdeas = () => {
     const [postsPerPage] = useState(2);
 
     useEffect(() => {
-        const url = "http://localhost:8080/api/projetos";
+        const url = "http://devcabral.com.br:8080/api/projetos";
         fetch(url)
             .then(resp => resp.json())
             .then(json => {

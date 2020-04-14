@@ -4,7 +4,11 @@ import { isAuthenticated } from "./services/auth";
 import GridProjects from './components/project-grid/GridProjects';
 import CadastroProjeto from './components/project-crud/CadastroProjeto';
 import ContatoPage from './components/project-contact/ContatoPage';
+import Home from './components/home/home';
 import Login from './components/login/Login'
+import About from './components/about/About'
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -21,13 +25,21 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => (
     <BrowserRouter>
-        <Switch>
-            <Route exact path="/" component={GridProjects} />
-            <PrivateRoute exact path="/CadastroProjeto" component={CadastroProjeto} />
-            <PrivateRoute exact path="/ContatoPage" component={ContatoPage} />
-            <Route exact path="/Login" component={Login} />
-            <Route path="*" component={() => <h1>Page not found</h1>} />
-        </Switch>
+        <TransitionGroup>
+            <CSSTransition
+                timeout={300}
+                classNames='fade'>
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <PrivateRoute exact path="/CadastroProjeto" component={CadastroProjeto} />
+                    <PrivateRoute exact path="/ContatoPage" component={ContatoPage} />
+                    <Route exact path="/Login" component={Login} />
+                    <Route exact path="/About" component={About} />
+                    <Route exact path="/GridProjects" component={GridProjects} />
+                    <Route path="*" component={() => <h1>Page not found</h1>} />
+                </Switch>
+            </CSSTransition>
+        </TransitionGroup>
     </BrowserRouter>
 );
 

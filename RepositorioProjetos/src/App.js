@@ -7,6 +7,7 @@ import Routes from "./routes";
 import { isAuthenticated, logout, login } from "./services/auth";
 import Button from 'react-bootstrap/Button';
 
+
 class App extends Component {
 
   constructor(props) {
@@ -28,7 +29,7 @@ class App extends Component {
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/CadastroProjeto">Cadastro</Nav.Link>
-            {/* <Nav.Link href="/Login">Login</Nav.Link> */}
+            <Nav.Link href="/About">Sobre</Nav.Link>
 
           </Nav>
           <img src={logo} className="App-logo-pequeno" alt="logo" />

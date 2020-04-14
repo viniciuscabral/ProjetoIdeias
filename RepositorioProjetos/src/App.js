@@ -1,36 +1,49 @@
 import './App.css';
-import React from 'react';
-import GridIdeas from './projetos-grid/GridIdeas';
-import CadastroProjeto from './projetos-cadastro/CadastroProjeto';
-import logo from './imgs/iconideialogo.svg';
+import React, { Component } from 'react';
+import logo from './assets/iconideialogo.svg';
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { Switch, Route } from 'react-router-dom';
+import Routes from "./routes";
+import { isAuthenticated, logout, login } from "./services/auth";
+import Button from 'react-bootstrap/Button';
 
-function App() {
-  return (
+class App extends Component {
 
-    <div className="App">
+  constructor(props) {
+    super(props);
+    this.state = [];
+  };
 
-      <Navbar bg="primary" variant="dark">
-        <Navbar.Brand href="/">Projetos</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="#CadastroProjeto">Cadastro</Nav.Link>
-        </Nav>
-        <img src={logo} className="App-logo-pequeno" alt="logo" />
-      </Navbar>
+  componentDidMount() {
+    isAuthenticated() ? this.setState({ isLoged: true }) : this.setState({ isLoged: false });
+    console.log(this.state.isLoged);
+  }
 
-      <Switch>
-        <Route exact path="/">
-          <GridIdeas />
-        </Route>
-        <Route exact path="/CadastroProjeto">
-          <CadastroProjeto />
-        </Route>
-      </Switch>
-    </div>
+  render() {
+    return (
+      <div className="App" >
 
-  );
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand href="/">Projetos</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/CadastroProjeto">Cadastro</Nav.Link>
+            {/* <Nav.Link href="/Login">Login</Nav.Link> */}
+
+          </Nav>
+          <img src={logo} className="App-logo-pequeno" alt="logo" />
+
+          {this.state.isLoged ?
+            <Button variant="info" onClick={() => logout()}>Log out</Button>
+            :
+            <Button variant="info" href="/Login"  >Log in</Button>}
+
+        </Navbar>
+
+        <Routes />
+      </div>
+
+    );
+  }
 }
 export default App;

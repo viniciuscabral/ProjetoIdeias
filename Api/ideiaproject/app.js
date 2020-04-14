@@ -9,7 +9,7 @@ var options = {
     pass: "root"
 };
 
-mongoose.connect('mongodb://mongo:27017/proj');
+mongoose.connect('mongodb://localhost:27017/proj');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

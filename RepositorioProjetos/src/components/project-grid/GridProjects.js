@@ -4,23 +4,23 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import IdeasDescp from "./IdeasDesc"
-import TagFilter from "./TagFilter"
-import logo from '../imgs/iconideialogo.svg';
-import Pagination from "../pagination/Pagination"
+import ProjectCard from "./ProjectCard";
+import TagFilter from "./TagFilter";
+import logo from '../../assets/iconideialogo.svg'
+import Pagination from "../pagination/Pagination";
+import api from '../../services/api';
 
-const GridIdeas = () => {
+const GridProjects = () => {
 
     const [dados, setDados] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [filtro, setFiltro] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(2);
+    const [postsPerPage] = useState(10);
 
-    useEffect(() => {
-        const url = "http://devcabral.com.br:8080/api/projetos";
-        fetch(url)
-            .then(resp => resp.json())
+    useEffect(async () => {
+        api.get("/projetos")
+            .then(resp => resp.data)
             .then(json => {
                 console.log(json);
                 setDados(json);
@@ -63,13 +63,13 @@ const GridIdeas = () => {
             <div>
                 <Container fluid="xs">
                     <Row>
-                        <Col style={{ margin: "1rem", width: '20%' }}>
+                        <Col style={{ margin: "1rem" }}>
                             <TagFilter tagsDisponiveis={uniqueTags} filterUpdate={updateFilter} />
                         </Col>
-                        <Col xs='auto' style={{ width: '80%' }}>
+                        <Col md='9' sm='2'>
                             <CardGroup>
                                 {currentPosts.map((projeto) =>
-                                    <IdeasDescp dados={projeto} />
+                                    <ProjectCard dados={projeto} />
                                 )}
                             </CardGroup>
                             <Pagination
@@ -93,4 +93,4 @@ const GridIdeas = () => {
         );
     }
 }
-export default GridIdeas;
+export default GridProjects;

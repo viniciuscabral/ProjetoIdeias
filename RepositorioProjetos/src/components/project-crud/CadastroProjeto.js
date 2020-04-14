@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Alert from 'react-bootstrap/Alert';
+import api from '../../services/api'
 
 class CadastroProjeto extends Component {
     constructor(props) {
@@ -46,23 +47,9 @@ class CadastroProjeto extends Component {
             </Alert>
         }
         else {
-            const apiUrl = 'http://devcabral.com.br:8080/api/projetos';
-            const myHeaders = new Headers();
-            myHeaders.append('Content-Type', 'application/json');
             const dados = this.state;
-
-            console.log(dados);
-            const options = {
-                method: 'post',
-                body: JSON.stringify(dados),
-                headers: myHeaders
-            };
-
-            console.log(options);
-            await fetch(apiUrl, options)
-                .then(res => res.json())
+            await api.post("/projetos", JSON.stringify(dados), { headers: { 'Content-Type': 'application/json' } })
                 .then(result => {
-
                     this.setState({
                         response: result,
                         isAddProduct: false
